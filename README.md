@@ -1,3 +1,3 @@
-# Todolist开发日记
+# Todolist开发
 
 ![avatar](/pic.png)
