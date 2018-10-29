@@ -11,8 +11,9 @@ class TodoItem extends Component {
     render() {
         const { content } = this.props;
         return (
-            <div onClick={this.handleClick}>
+            <div className='list-item'>
                 {content}
+                <span className='delete' onClick={this.handleClick}>X</span>
             </div>
         )
     }

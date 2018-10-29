@@ -12,8 +12,42 @@ class TodoList extends Component {
         this.handleButtonClick = this.handleButtonClick.bind(this);
         this.handleItemDetele = this.handleItemDetele.bind(this);
         this.getTodoItem = this.getTodoItem.bind(this);
+        this.handleEnterKey = this.handleEnterKey.bind(this);
     }
-
+    render() {
+        return (
+            <Fragment>
+                <div className='wrapper'>
+                {
+                    // 下面是一个input框
+                    /* 输入todolist内容 */ 
+                }
+                    <label className='input-label' htmlFor='insertArea'>输入内容:</label>
+                    <input className='input' id='insertArea' value={this.state.inputValue}
+                    onChange={this.handleInputChange}
+                    />
+                    <button className='input-submit' onClick={this.handleButtonClick}>提交</button>
+                </div>
+                <ul className='wrapper-list'>
+                    {
+                        this.getTodoItem()
+                    }
+                </ul>
+            </Fragment>
+        )
+    }
+    componentDidMount () {
+        document.addEventListener("keydown",this.handleEnterKey);
+    }
+    componentWillMount () {
+        document.removeEventListener("keydown",this.handleEnterKey);
+    }
+    handleEnterKey (e) {
+        console.log(e)
+        if (e.keyCode === 13) {
+            this.handleButtonClick()
+        }
+    }
     handleInputChange (e) {
         // console.log(e.target.value)
         // this.setState({
@@ -52,7 +86,7 @@ class TodoList extends Component {
     getTodoItem () {
         return this.state.list.map((item, index) => {
             return (
-                <div key={index}>
+                <Fragment key={index}>
                 <TodoItem content={item} index={index} deteleItem={this.handleItemDetele} />
                 {
                     /* 
@@ -62,34 +96,13 @@ class TodoList extends Component {
                 </li>
                  */
                 }
-                </div>
+                </Fragment>
             )
         }
         )
     }
 
-    render() {
-        return (
-            <Fragment>
-                <div>
-                {
-                    // 下面是一个input框
-                    /* 输入todolist内容 */ 
-                }
-                    <label htmlFor='insertArea'>输入内容</label>
-                    <input className='input' id='insertArea' value={this.state.inputValue}
-                    onChange={this.handleInputChange}
-                    />
-                    <button onClick={this.handleButtonClick}>提交</button>
-                </div>
-                <ul>
-                    {
-                        this.getTodoItem()
-                    }
-                </ul>
-            </Fragment>
-        )
-    }
+    
 }
 
 export default TodoList;
