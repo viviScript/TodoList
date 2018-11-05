@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import store from './store';
 // import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM } from './store/actionTypes';
-import { getTodoList,getInputChangeAction, getAddItemAction, getDeteleItemAction} from './store/actionCreators'
+import { getInputChangeAction, getAddItemAction, getDeteleItemAction, getInitList} from './store/actionCreators'
 import TodoListUI from './TodoListUI';
-// import axios from 'axios';
+import axios from 'axios';
 require('./mock/index');
 
 class TodoList extends Component {
@@ -30,8 +30,15 @@ class TodoList extends Component {
             )
     }
     componentDidMount () {
-        const action = getTodoList()
-        store.dispatch(action);
+        // redux-thunk 使用
+        // const action = getTodoList()
+        // store.dispatch(action);
+
+        // redux-saga
+        const action = getInitList();
+        store.dispatch(action)
+
+        // 普通方式
         // axios.post('/api/test').then((res) => {
         //     const data = res.data.list
         //     const action = initListAction(data)
